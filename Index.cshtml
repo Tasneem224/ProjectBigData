@@ -1,0 +1,85 @@
+﻿@model List<ProjectBigData.Models.LinkModel>
+@{
+    ViewData["Title"] = "نتائج البحث";
+}
+
+<!-- Page Container -->
+<div class="page-container">
+    <h1 class="title">Search Engine</h1>
+
+    <!-- Course Information Section -->
+    <div class="course-box">
+        <h3>Faculty of Computer Science and Artificial Intelligence</h3>
+        <h2>Course: Big Data</h2>
+        <p><strong>Instructor:</strong> Dr. Fawzya Ramadan</p>
+        <p><strong>Teaching Assistants:</strong></p>
+        <ul>
+            <li>Hamada Mostafa Mohamed Othman</li>
+            <li>Ahmed Ibrahim Ali Abdul Salam</li>
+            <li>Alaa Nabil Ali Ali</li>
+            <li>Ahmed Abdel Tawab Mabrouk Moussa</li>
+        </ul>
+    </div>
+
+    <!-- Search Form -->
+    <form asp-controller="Search" asp-action="Index" method="post" class="search-form">
+        <input type="text" name="keyword" placeholder="أدخل كلمة أو كلمتين (مثال: بيانات كبيرة)..." required />
+        <button type="submit">SEARCH</button>
+    </form>
+
+    @if (ViewBag.Keyword != null)
+    {
+        <div class="results-header">
+            <h2>نتائج البحث عن: <span class="keyword">@ViewBag.Keyword</span></h2>
+            @if (Model != null && Model.Any())
+            {
+                <form asp-controller="Search" asp-action="PageRank" method="post">
+                    <input type="hidden" name="keyword" value="@ViewBag.Keyword" />
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <input type="hidden" name="links[@i].Link" value="@Model[i].Link" />
+                        <input type="hidden" name="links[@i].Count" value="@Model[i].Count" />
+                    }
+                    <button type="submit">Page Rank</button>
+                </form>
+            }
+        </div>
+
+        @if (Model != null && Model.Any())
+        {
+            <div class="results-container">
+                @foreach (var link in Model)
+                {
+                    <div class="result-item">
+                        <a href="@link.Link" target="_blank" class="link" onclick="highlightText('@ViewBag.Keyword', this)">
+                            🔗 @link.Link
+                        </a>
+                        <p>Number of appearances: @link.Count</p>
+                        <button onclick="copyToClipboard('@link.Link')">📋 نسخ</button>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="no-results">
+                <p>
+                    <span>🔍</span>
+                    لم يتم العثور على روابط لهذه الكلمة.
+                </p>
+            </div>
+        }
+    }
+
+    <!-- Team Members Section -->
+    <div class="team-box">
+        <h2>Department: Computer Science and Artificial Intelligence</h2>
+        <p><strong>Team Members:</strong></p>
+        <ul>
+            <li>Tasneem Taha Abdelwadood</li>
+            <li>Alaa Ibrahim Abdel Tawab</li>
+            <li>Dalia Mohamed Gamal</li>
+            <li>Eman Mohamed Soudy</li>
+        </ul>
+    </div>
+</div>
