@@ -14,23 +14,23 @@
         <p><strong>Instructor:</strong> Dr. Fawzya Ramadan</p>
         <p><strong>Teaching Assistants:</strong></p>
         <ul>
-            <li>Hamada Mostafa Mohamed Othman</li>
-            <li>Ahmed Ibrahim Ali Abdul Salam</li>
-            <li>Alaa Nabil Ali Ali</li>
-            <li>Ahmed Abdel Tawab Mabrouk Moussa</li>
+            <li>Eng.Hamada Mostafa Mohamed Othman</li>
+            <li>Eng.Ahmed Ibrahim Ali Abdul Salam</li>
+            <li>Eng.Alaa Nabil Ali Ali</li>
+            <li>Eng.Ahmed Abdel Tawab Mabrouk Moussa</li>
         </ul>
     </div>
 
     <!-- Search Form -->
     <form asp-controller="Search" asp-action="Index" method="post" class="search-form">
-        <input type="text" name="keyword" placeholder="أدخل كلمة أو كلمتين (مثال: بيانات كبيرة)..." required />
+        <input type="text" name="keyword" placeholder="Enter your words......." required />
         <button type="submit">SEARCH</button>
     </form>
 
     @if (ViewBag.Keyword != null)
     {
         <div class="results-header">
-            <h2>نتائج البحث عن: <span class="keyword">@ViewBag.Keyword</span></h2>
+            <h2>Results for : <span class="keyword">@ViewBag.Keyword</span></h2>
             @if (Model != null && Model.Any())
             {
                 <form asp-controller="Search" asp-action="PageRank" method="post">
@@ -82,4 +82,5 @@
             <li>Eman Mohamed Soudy</li>
         </ul>
     </div>
+
 </div>

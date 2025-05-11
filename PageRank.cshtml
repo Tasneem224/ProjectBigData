@@ -24,8 +24,8 @@
 
     <!-- Search Form -->
     <form asp-controller="Search" asp-action="Index" method="post" class="search-form">
-        <input type="text" name="keyword" placeholder="أدخل كلمة أو كلمتين (مثال: بيانات كبيرة)..." required class="search-input" />
-        <button type="submit" class="search-button">بحث</button>
+        <input type="text" name="keyword" placeholder="Enter your words......." required class="search-input" />
+        <button type="submit" class="search-button">search</button>
     </form>
 
     @if (ViewBag.Keyword != null)
@@ -59,7 +59,7 @@
     <div class="team-section">
         <h2>Department: Computer Science and Artificial Intelligence</h2>
         <p><strong>Team Members:</strong></p>
-        <ul>
+        <ul class="no-bullets"
             <li>Tasneem Taha Abdelwadood</li>
             <li>Alaa Ibrahim Abdel Tawab</li>
             <li>Dalia Mohamed Gamal</li>
