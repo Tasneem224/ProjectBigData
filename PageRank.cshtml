@@ -4,21 +4,17 @@
 }
 
 <!-- Page Container -->
-<div style="min-height: 100vh; background: linear-gradient(135deg, #e3f2fd, #bbdefb); padding: 20px; font-family: Arial, sans-serif;">
+<div class="page-container">
 
-    <h1 style="text-align: center; font-size: 3em; margin-bottom: 30px; background: linear-gradient(45deg, #1a237e, #3f51b5); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); animation: scaleIn 0.5s ease-in-out;"
-        onmouseover="this.style.transform='scale(1.05)';"
-        onmouseout="this.style.transform='scale(1)';">
-        Search Engine
-    </h1>
+    <h1 class="title">Search Engine</h1>
 
     <!-- Course Information Section -->
-    <div style="text-align: center; margin-bottom: 40px; background-color: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); max-width: 600px; margin-left: auto; margin-right: auto;">
-        <h3 style="color: #1a237e; font-size: 1.4em; font-weight: bold; margin-bottom: 10px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">Faculty of Computer Science and Artificial Intelligence</h3>
-        <h2 style="color: #1a237e; font-size: 1.8em; margin-bottom: 15px;">Course: Big Data</h2>
-        <p style="font-size: 1.2em; color: #34495e; margin: 5px 0;"><strong>Instructor:</strong> Dr. Fawzya Ramadan</p>
-        <p style="font-size: 1.1em; color: #34495e; margin: 5px 0;"><strong>Teaching Assistants:</strong></p>
-        <ul style="list-style: none; padding: 0; margin: 10px 0; font-size: 1em; color: #34495e;">
+    <div class="course-info">
+        <h3>Faculty of Computer Science and Artificial Intelligence</h3>
+        <h2>Course: Big Data</h2>
+        <p><strong>Instructor:</strong> Dr. Fawzya Ramadan</p>
+        <p><strong>Teaching Assistants:</strong></p>
+        <ul class="no-bullets"
             <li>Eng.Hamada Mostafa Mohamed Othman</li>
             <li>Eng.Ahmed Ibrahim Ali Abdul Salam</li>
             <li>Eng.Alaa Nabil Ali Ali</li>
@@ -27,66 +23,43 @@
     </div>
 
     <!-- Search Form -->
-    <form asp-controller="Search" asp-action="Index" method="post" style="text-align: center; margin-bottom: 60px;">
-        <input type="text" name="keyword" placeholder="أدخل كلمة أو كلمتين (مثال: بيانات كبيرة)..." required
-               style="padding: 15px; width: 400px; border-radius: 8px; border: 1px solid #90caf9; font-size: 1.2em; outline: none; transition: border-color 0.3s;"
-               onfocus="this.style.borderColor='#3f51b5';"
-               onblur="this.style.borderColor='#90caf9';" />
-        <button type="submit"
-                style="padding: 15px 30px; background-color: #3f51b5; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1.2em; transition: background-color 0.3s;"
-                onmouseover="this.style.backgroundColor='#303f9f';"
-                onmouseout="this.style.backgroundColor='#3f51b5';">
-            بحث
-        </button>
+    <form asp-controller="Search" asp-action="Index" method="post" class="search-form">
+        <input type="text" name="keyword" placeholder="أدخل كلمة أو كلمتين (مثال: بيانات كبيرة)..." required class="search-input" />
+        <button type="submit" class="search-button">بحث</button>
     </form>
 
     @if (ViewBag.Keyword != null)
     {
-        <div style="text-align: center; margin-bottom: 20px;">
-            <h2 style="color: #1a237e; font-size: 1.6em;">Results for the page rank <span style="color: #2e7d32;">@ViewBag.Keyword</span></h2>
+        <div class="results-header">
+            <h2>Results for the page rank <span class="keyword">@ViewBag.Keyword</span></h2>
         </div>
 
         @if (Model != null && Model.Any())
         {
-            <div style="max-width: 900px; margin-left: auto; margin-right: auto;">
+            <div class="results-container">
                 @foreach (var item in Model)
                 {
-                    <div style="display: flex; align-items: center; justify-content: space-between; background-color: white; padding: 15px; margin-bottom: 15px; border-radius: 12px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); transition: transform 0.2s;"
-                         onmouseover="this.style.transform='translateY(-2px)';"
-                         onmouseout="this.style.transform='translateY(0)';">
-                        <a href="@item.Link" target="_blank" class="link" onclick="highlightText('@ViewBag.Keyword', this)"
-                           style="flex: 1; text-decoration: none; color: #1a237e; font-size: 1em; overflow-wrap: break-word; transition: color 0.3s;">
-                            🔗 @item.Link
-                        </a>
-                        <p style="color: #34495e; font-size: 0.9em; margin: 5px 0 0 0;">
-                            PageRank: @item.PageRank.ToString("F4")
-                        </p>
-                        <button onclick="copyToClipboard('@item.Link')"
-                                style="padding: 8px 16px; background-color: #4caf50; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9em;"
-                                onmouseover="this.style.backgroundColor='#388e3c';"
-                                onmouseout="this.style.backgroundColor='#4caf50';">
-                            📋 نسخ
-                        </button>
+                    <div class="result-item">
+                        <a href="@item.Link" target="_blank" class="link" onclick="highlightText('@ViewBag.Keyword', this)">🔗 @item.Link</a>
+                        <p>PageRank: @item.PageRank.ToString("F4")</p>
+                        <button onclick="copyToClipboard('@item.Link')" class="copy-button">📋 نسخ</button>
                     </div>
                 }
             </div>
         }
         else
         {
-            <div style="text-align: center; max-width: 900px; margin-left: auto; margin-right: auto; background-color: white; padding: 20px; border-radius: 12px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
-                <p style="color: #78909c; font-size: 1.1em; margin: 0;">
-                    <span style="font-size: 1.5em; margin-right: 8px;">🔍</span>
-                    لم يتم العثور على روابط لهذه الكلمة.
-                </p>
+            <div class="no-results">
+                <p><span>🔍</span> لم يتم العثور على روابط لهذه الكلمة.</p>
             </div>
         }
     }
 
     <!-- Team Members Section -->
-    <div style="text-align: center; margin-top: 40px; margin-bottom: 40px; background-color: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); max-width: 600px; margin-left: auto; margin-right: auto;">
-        <h2 style="color: #1a237e; font-size: 1.8em; margin-bottom: 15px;">Department: Computer Science and Artificial Intelligence</h2>
-        <p style="font-size: 1.1em; color: #34495e; margin: 5px 0;"><strong>Team Members:</strong></p>
-        <ul style="list-style: none; padding: 0; margin: 10px 0; font-size: 1em; color: #34495e;">
+    <div class="team-section">
+        <h2>Department: Computer Science and Artificial Intelligence</h2>
+        <p><strong>Team Members:</strong></p>
+        <ul>
             <li>Tasneem Taha Abdelwadood</li>
             <li>Alaa Ibrahim Abdel Tawab</li>
             <li>Dalia Mohamed Gamal</li>
@@ -96,63 +69,7 @@
 
 </div>
 
-<!-- Copy and Highlight Scripts -->
 @section Scripts {
-    <script>
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(function () {
-                alert('تم نسخ الرابط!');
-            }, function (err) {
-                alert('فشل النسخ: ' + err);
-            });
-        }
-
-        // Function to highlight the searched keywords and mark link as clicked
-        function highlightText(keyword, element) {
-            // Toggle the clicked class for the current link
-            element.classList.toggle('clicked');
-
-            // Split keywords and highlight each in all links
-            var keywords = keyword.split(' ').filter(k => k.trim() !== '');
-            var links = document.querySelectorAll('.link');
-
-            // Clear previous highlights
-            links.forEach(link => {
-                var linkText = link.textContent; // Get original text
-                link.innerHTML = '🔗 ' + linkText.substring(2); // Restore original text with emoji
-            });
-
-            // Apply new highlights
-            links.forEach(link => {
-                var linkText = link.innerHTML;
-                keywords.forEach(k => {
-                    // Escape special characters, including '+' in 'C++' and '#' in 'C#'
-                    var escapedKeyword = k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                    var regex = new RegExp(`\\b(${escapedKeyword})\\b`, 'gi');
-                    linkText = linkText.replace(regex, '<span class="highlight">$1</span>');
-                });
-                link.innerHTML = linkText;
-            });
-        }
-    </script>
-
-    <style>
-        .highlight {
-            background-color: #fff176;
-            font-weight: bold;
-        }
-
-        .link.clicked {
-            color: #303f9f !important;
-            text-decoration: underline !important;
-            background-color: #e3f2fd;
-            padding: 2px 4px;
-            border-radius: 4px;
-        }
-
-        .link:hover {
-            color: #303f9f;
-            text-decoration: underline;
-        }
-    </style>
+    <script src="~/js/PageRank.js"></script>
+    <link rel="stylesheet" href="~/css/PageRank.css" />
 }
